@@ -1,38 +1,51 @@
 'use strict';
+function summerize(array){
+         let result = [];
+          for(let item of array){
+                    let obj = finds(result,item);
+                    if(obj){
+                              obj.count++;
+                    }else{
+                              result.push({key: item, count: 1});
+                    }
+          }
+          return result; 
+}
+function finds(array,ch){
+          for(let item of array){
+                    if(item.key === ch){
+                              return item;
+                    }
+          }
+          return null;
+}
+function split(ch){
+          let array = ch.split("-");
+          return {key:array[0], count:parseInt(array[1],10)};
+}
+function push(result,key,count){
+          for(var i=0; i<count; i++){
+                   result.push(key); 
+          }
+          
+}
+
+function expend(collection){
+          let result = [];
+          for(let item of collection){
+                    if(item.length > 1){
+                              let {key,count} = split(item);
+                              push(result,key,count);
+                    }else{
+                              result.push(item);
+                    }
+                    
+          }
+          return result;
+}
+
 
 module.exports = function countSameElements(collection) {
-        var con =[];
-          var indices = [];
-          var idx = -1;
-          var k=[];
-          var cnt=[];
-          for(var i=0; i<collection.length; i++)
-          {
-                   if(k.includes(collection[i])){
-                              continue;
-                   }else{
-                             if(collection[i].length==1){
-                              idx = collection.indexOf(collection[i]);
-                              while (idx != -1) {
-                                        indices.push(idx);
-                                        idx = collection.indexOf(collection[i], idx + 1);
-                              }                              
-                              k.push(collection[i]);
-                              cnt.push(indices.length);
-                              }else{
-//                                        k.push(collection[i].split("-", 2)[0]);
-//                                        cnt.push(parseInt(collection[i].split("-", 2)[1]));
-                                        k.push(collection[i][0]);
-                                        cnt.push(parseInt(collection[i][2]));
-                              }
-                              
-                   }
-                   indices = [];
-          }
-          for(var l=0;l<k.length;l++)
-          {
-                    con.push({key:k[l],count:cnt[l]});
-          }
-
-  return  con; //  '实现练习要求，并改写该行代码。';
+          let array = expend(collection);
+          return summerize(array);
 }
