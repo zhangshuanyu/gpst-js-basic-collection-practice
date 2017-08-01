@@ -1,30 +1,23 @@
 'use strict';
 
 module.exports = function countSameElements(collection) {
-          var con =[];
-          var indices = [];
-          var idx = -1;
-          var k=[];
-          var cnt=[];
-          for(var i=0; i<collection.length; i++)
-          {
-                   if(k.includes(collection[i])){
-                              continue;
-                   }else{
-                              k.push(collection[i]);
-                              idx = collection.indexOf(collection[i]);
-                              while (idx != -1) {
-                                        indices.push(idx);
-                                        idx = collection.indexOf(collection[i], idx + 1);
-                              }
-                              cnt.push(indices.length);
-                   }
-                   indices = [];
+          let result = [];
+          for(let item of collection){
+                    let obj = finds(result,item);
+                    if(obj){
+                              obj.count++;
+                    }else{
+                              result.push({key: item, count: 1});
+                    }
           }
-          for(var l=0;l<k.length;l++)
-          {
-                    con.push({key:k[l],count:cnt[l]});
-          }
+          return result;
 
-  return  con; //  '实现练习要求，并改写该行代码。';
+}
+function finds(collection,ch){
+          for(let item of collection){
+                    if(item.key === ch){
+                              return item;
+                    }
+          }
+          return null;
 }
