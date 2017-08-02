@@ -1,40 +1,62 @@
 'use strict';
+function summerize(array){
+          let result = [];
+          for(let item of array){
+                    let obj = find(result,item);
+                    if(obj){
+                              obj.summary++;
+                    }else{
+                              result.push({name:item,summary:1});
+                    }
+          }
+          return result;
+}
+
+function find(result,ch){
+          for(let item of result){
+                    if(item.name === ch){
+                              return item;
+                    }
+          }
+          return null;
+}
+
+function split(ch){
+          if(ch.includes("-")){
+                    let array = ch.split("-");
+                    return {name:array[0],summary:parseInt(array[1],10)};
+          }
+          if(ch.includes(":")){
+                    let array = ch.split(":");
+                    return {name:array[0],summary:parseInt(array[1],10)};
+          }
+          if(ch.includes("[")){
+                    let name = ch.charAt(0);
+                    let summary = parseInt(ch.substr(2,ch.length-1));
+                    return {name,summary};
+          }
+}
+
+function push(result,name,summary){
+          for(var i=0;i<summary; i++){
+                    result.push(name);
+          }
+}
+
+function expend(collection){
+          let result = [];
+          for(let item of collection){
+                    if(item.length === 1){
+                              result.push(item);
+                    }else{
+                              let {name,summary} = split(item);
+                              push(result,name,summary);
+                    }
+          }
+          return result;
+}
 
 module.exports = function countSameElements(collection) {
-          var con =[];
-          var indices = [];
-          var idx = -1;
-          var k=[];
-          var cnt=[];
-          for(var i=0; i<collection.length; i++)
-          {
-                   if(k.includes(collection[i])){
-                              continue;
-                   }else{
-                             if(collection[i].length==1){
-                                        idx = collection.indexOf(collection[i]);
-                                        while (idx != -1) {
-                                                  indices.push(idx);
-                                                  idx = collection.indexOf(collection[i], idx + 1);
-                                        }                              
-                                        k.push(collection[i]);
-                                        cnt.push(indices.length);
-                              }else{
-                                        if(k.includes(collection[i][0])){//             /[1-9]\d*/             /\d{1,2}/
-                                              cnt[k.indexOf(collection[i][0])] += parseInt(collection[i].match(/[1-9]\d*/));
-                                        }else{
-                                                  k.push(collection[i][0]);
-                                                  cnt.push(parseInt(collection[i].match(/\d/)));
-                                        }                                       
-                              }
-                              
-                   }
-                   indices = [];
-          }
-          for(var l=0;l<k.length;l++)
-          {
-                    con.push({name:k[l],summary:cnt[l]});
-          }
-
-  return  con; //  '实现练习要求，并改写该行代码。';
+          let expendarray = expend(collection);
+          return summerize(expendarray);
 }
