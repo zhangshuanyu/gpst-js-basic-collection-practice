@@ -1,13 +1,27 @@
 'use strict';
 
 module.exports = function createUpdatedCollection(collectionA, objectB) {
+          let result = []; 
           
-          for(var i=0; i<collectionA.length; i++)
-          {
-                    if( objectB.value.includes(collectionA[i].key))
-                    {
-                            collectionA[i].count-=1;
-                    }
+          for(let item of collectionA){
+                   let key =  item.key;
+                   let count = item.count;
+                   
+                   if(compare(objectB.value,key)){
+                         count--;
+                   }
+                   result.push({key:key , count:count});                  
           }
-  return collectionA;         //'实现练习要求，并改写该行代码。';
+          
+          return result;
+}
+function compare(array,ch){
+          
+         for(let item of array) {
+                   if(item === ch){
+                             return true;
+                   }
+         }
+         
+         return false;
 }
