@@ -13,6 +13,6 @@ module.exports = function countSameElements(collection) {
         } else {
             result.push({name: item, summary: count});
         }
-    })
+    });
     return result;
-}
+};
