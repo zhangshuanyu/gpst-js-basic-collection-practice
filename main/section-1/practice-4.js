@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = function collectSameElements(collectionA, objectB) {
-    let arr = collectionA.map(ele => ele.key).filter(key => objectB.value.includes(key));
+    var arr = collectionA.map(element => element.key).filter(key => objectB.value.includes(key));
     return arr;
 };

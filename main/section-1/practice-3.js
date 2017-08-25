@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = function collectSameElements(collectionA, objectB) {
-    let arr = collectionA.filter(ele => objectB.value.includes(ele));
+    var arr = collectionA.filter(element => objectB.value.includes(element));
     return arr;
 };

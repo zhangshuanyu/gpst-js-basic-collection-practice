@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = function countSameElements(collection) {
-    let result = [];
+    var result = [];
     collection.forEach(function (item) {
-        let obj = result.find(obj => obj.key === item);
+        var obj = result.find(obj => obj.key === item);
         if (obj) {
             obj.count++;
         } else {

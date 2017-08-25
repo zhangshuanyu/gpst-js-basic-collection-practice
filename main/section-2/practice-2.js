@@ -1,14 +1,14 @@
 'use strict';
 module.exports = function countSameElements(collection) {
-    let result = [];
+    var result = [];
     collection.forEach(function (item) {
-        let count = 1;
+        var count = 1;
         if(item.includes('-')) {
-            let split = item.split('-');
+            var split = item.split('-');
             item = split[0];
             count = Number(split[1]);
         }
-        let obj = result.find(obj => obj.key === item);
+        var obj = result.find(obj => obj.key === item);
         if (obj) {
             obj.count++;
         } else {
